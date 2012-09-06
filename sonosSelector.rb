@@ -43,7 +43,7 @@ Shoes.app :title => "Audio Selector" do #, :width => 640, :height => 400 do
     course_types
   end # ---- end createCourseList -----------------
 
-  top_of_library = "/Users/hjw/Documents/DhammaService/lab/media"
+  top_of_library = "/Users/hjw/Documents/DhammaService/sonos/media"
   course_types = createCourseList(top_of_library)
   
   #background aliceblue.. black, :angle => -90
@@ -62,16 +62,13 @@ Shoes.app :title => "Audio Selector" do #, :width => 640, :height => 400 do
       background "rgb(66, 66, 66, 180)".."rgb(0, 0, 0, 0)", :height => 0.7
       background "rgb(66, 66, 66, 100)".."rgb(255, 255, 255, 0)", :height => 20, :bottom => 0
     end
-    flow :margin => 5 do
+    flow :margin => 5, :height => 350 do
       flow :margin_top => 20, :margin_left => 118  do
         stack  do
           flow do
             #background "rgb(240, 248, 255, 100)".."rgb(255, 255, 255, 0)"
             tagline("Choose a course type:\n")
             @course_box = list_box :items => course_types
-          end
-          button "Quit" do
-            close()
           end
 
           @languages_flow = flow :hidden => true do
@@ -83,6 +80,22 @@ Shoes.app :title => "Audio Selector" do #, :width => 640, :height => 400 do
             #@languages_boxes = 
           end
         end
+      end
+    end
+  #flow  :margin_top => 20, :margin_left => 50 do
+    #flow  :bottom => 0, :left => 0 do
+    flow  do
+      button "Create New Library"  do
+        close()
+      end
+      button "Add Another Course"  do
+        close()
+      end
+      button "show selections"  do
+        close()
+      end
+      button "Quit"  do
+        close()
       end
     end
   end
