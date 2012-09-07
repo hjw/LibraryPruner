@@ -1,0 +1,9 @@
+This is a small gui app to help manage a deeply nested audio library.
+
+Functionally it assumes that the library is set up with category 
+directories containing language directories containing mp3 files 
+for that language.  In our case category = course type.
+
+Once the desired categories and their respective languages have been
+selected the program creates softlinks in a publicly mounted directory
+which is what you point your sonos system at.
