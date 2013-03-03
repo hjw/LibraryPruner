@@ -94,19 +94,30 @@ Shoes.app :title => "Audio Selector", :width => 640 do
   # @button_bar is a flow,  pinned to the bottom of the window.
   # In order for this to work it must be declared before
   # any other stacks/ flows and it must have a height specified.
-  @button_bar = flow :bottom => 0, :height => 60 do
-    button "Create New Library"  do
-      close()
+  #@button_bar = flow :bottom => 0, :height => 60 do
+  lib_root = ""
+  @button_bar_area = stack :bottom => 10, :height => 60 do
+    @button_bar = flow do
+      button "Create New Library"  do
+        lib_root = ask_open_folder
+        @status_area.append do
+          para lib_root
+        end
+      end
+      button "Add Another Course"  do
+        close()
+      end
+      button "show selections"  do
+        close()
+      end
+      button "Quit"  do
+        close()
+      end
     end
-    button "Add Another Course"  do
-      close()
+    @status_area = flow  do
+      caption("You selected: ")
     end
-    button "show selections"  do
-      close()
-    end
-    button "Quit"  do
-      close()
-    end
+
   end
   stack do
     stack do
@@ -120,23 +131,24 @@ Shoes.app :title => "Audio Selector", :width => 640 do
       background "rgb(66, 66, 66, 180)".."rgb(0, 0, 0, 0)", :height => 0.7
       background "rgb(66, 66, 66, 100)".."rgb(255, 255, 255, 0)", :height => 20, :bottom => 0
     end
-    #flow :margin => 5, :height => 450 do
     flow :margin => 5 do
       flow :margin_top => 20, :margin_left => 90  do
-        #background "rgb(240, 248, 255, 100)".."rgb(255, 255, 255, 0)"
         caption("Choose a course type\n")
         @course_box = list_box :items => @course_types, :margin_left => 60
       end
+
       @languages_flow = flow :hidden => true do
         para "choose the desired languages:\n",:stroke => firebrick
-        @course_box.change do 
-          @languages_flow.style :hidden => false 
-          @languages_boxes = @myAudioLibrary.createLanguageList(@course_box.text)
-          @languages_flow.append do
-            @languages_boxes.each do |lang|
-              check; para lang, :margin_right =>25
-            end
+      end
+      @course_box.change do 
+        @languages_flow.style :hidden => false 
+        @languages_boxes = @myAudioLibrary.createLanguageList(@course_box.text)
+        @languages_flow.append do
+          @languages_boxes.map! do |lang|
+            @c =check; para lang, :margin_right =>25
+            [@c, lang]
           end
+          debug("languages_boxes = #{@languages_boxes}")
         end
       end
     end
