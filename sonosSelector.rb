@@ -86,7 +86,7 @@ Shoes.app :title => "Audio Selector", :width => 640 do
   end #-- AudioLibrary class ----------------
    
 
-  top_of_library = "/Users/hjw/Documents/DhammaService/sonos/media"
+  top_of_library = "/Users/hjw/Documents/DhammaService/media"
 
   @myAudioLibrary = AudioLibrary.new(top_of_library)
   @course_types = @myAudioLibrary.createCourseList
@@ -98,10 +98,19 @@ Shoes.app :title => "Audio Selector", :width => 640 do
   lib_root = ""
   @button_bar_area = stack :bottom => 10, :height => 60 do
     @button_bar = flow do
-      button "Create New Library"  do
+      button "Browse Library"  do
         lib_root = ask_open_folder
         @status_area.append do
           para lib_root
+        end
+        window :title => "Audio Library Browser" do
+          #style(title => "Browser Window", :width => 340 
+            background "#e9efe0"
+            background "#e9efe0".."c1c5d0", :height => 150, :bottom => 150
+          stack :margin => 20  do
+            title  "Chosen Audio Library:"
+            tagline  lib_root
+          end
         end
       end
       button "Add Another Course"  do
