@@ -17,6 +17,10 @@ Shoes.app do
      para "fubar, fubar, fubar"
      @check_list = Array.new(@first_list)
         stack do
+      background "rgb(0, 191, 255, 100)".."rgb(255, 255, 255, 0)"
+          para "fubar"
+          para "fubar"
+          para "fubar"
           @check_list.map! do |name|
              flow { @c = check; para name }
                [@c, name]
